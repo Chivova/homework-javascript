@@ -14,12 +14,13 @@
 const findBestEmployee = function(employees) {
   const keys = Object.keys(employees);
   let bestProductive = keys[0];
+  
+  for (let i = 1; i < keys.length; i += 1) {
+    //  console.log(employees[keys[i]] );
+    // console.log( employees[bestProductive]);
 
-  for (let i = 0; i < keys.length; i += 1) {
-    //  console.log(bestEmployee[i]);
-    // console.log(Math.max(employees[bestEmployee[i]]));
     if (employees[keys[i]] > employees[bestProductive]) {
-       
+    
       bestProductive = keys[i];
      
     }
