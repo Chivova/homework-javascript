@@ -16,13 +16,31 @@ const calculateTotalPrice = function(allProdcuts, productName) {
     for (const product of allProdcuts) {
         // console.log(product);
         // console.log(product.name);
-       if (product.name === productName) {
-           sum = product.price * product.quantity;
-       }
+       if (product.name !== productName) { //----> хорошая практика делать от обратного
+           continue;
+        }
+        
+        return sum = product.price * product.quantity;
         
     }
-    return sum;
-};
+
+    return sum; // ---> если ввести несуществующее значение возвращаем 0
+
+ };
+
+// const calculateTotalPrice = function(allProdcuts, productName) {
+//     let sum = 0;
+   
+//     for (const product of allProdcuts) {
+//         // console.log(product);
+//         // console.log(product.name);
+//        if (product.name === productName) {
+//            sum = product.price * product.quantity;
+//        }
+        
+//     }
+//     return sum;
+// };
 
 /*
  * Вызовы функции для проверки работоспособности твоей реализации.
@@ -30,3 +48,5 @@ const calculateTotalPrice = function(allProdcuts, productName) {
 console.log(calculateTotalPrice(products, 'Радар')); // 5200
 
 console.log(calculateTotalPrice(products, 'Дроид')); // 2800
+
+console.log(calculateTotalPrice(products, 'Защитное поле'));
