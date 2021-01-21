@@ -11,9 +11,19 @@ const user = {
 };
 
 const userInfo = function () {
-    const { name, age, hobby, premium, obj: { a, b}}= user;
-   return  console.log(`name: ${name}, age: ${age}, hobby: ${hobby}, premium: ${premium}, a: ${a}, b: ${b}`);
+  const { name, age, hobby, premium, obj: { a, b } } = user;
+  return console.log(`name: ${name}, age: ${age}, hobby: ${hobby}, premium: ${premium}, a: ${a}, b: ${b}`);
 };
 
+
+userInfo(user);
+
+// или
+
+const getUserInfo = ({ name, age, hobby, premium, obj: { a, b } }) => {
+  const message = `name: ${name}, age: ${age}, hobby: ${hobby}, premium: ${premium}, a: ${a}, b: ${b}`;
+
+  console.log(message);
+};
 
 userInfo(user);
