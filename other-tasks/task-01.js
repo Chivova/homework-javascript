@@ -11,3 +11,6 @@ const arrayOfNumbers = [23, 45, 78, 90, 7];
 
 const getMinOfArr = numbers => Math.min(...numbers);
 console.log(getMinOfArr(arrayOfNumbers));
+
+
+
