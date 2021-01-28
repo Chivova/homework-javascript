@@ -6,12 +6,19 @@
 // greet(name) - коллбек принимающий имя
 // и логирующий в консоль строку "Привет" + name
 
-const letMeSeeYourName = function (callback) {
-  const name = prompt(`What your name?`);
+const letMeSeeYourName = (callback)  => {
+  const name = prompt(`What is your name?`);
+
   callback(name);
 };
-const greet = function (name) {
-  console.log(`Hello ${name}`);
-};
+// const greet = (name) => {
+//   console.log(`Hello ${name}`);
+// };
+const greet = (name) => console.log(`Hello ${name}`);
+;
+
 
 letMeSeeYourName(greet);
+
+// Анонимная функция --> функция без имени
+letMeSeeYourName (name => console.log(`Hi ${name}!!!!`))
