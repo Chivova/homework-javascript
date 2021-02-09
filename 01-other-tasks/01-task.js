@@ -16,16 +16,23 @@ const Worker = function ({ name, surname, rate, days } = {}) {
   this.surname = surname;
   this.rate = rate;
   this.days = days;
+
+  Worker.count += 1; // --> статическое свойство(при каждом вызове конструктора будет увеличиваться на 1)
 };
 
-Worker.prototype.getSalary = function (salary) {
-  salary = this.rate * this.days;
+Worker.count = 0;
+Worker.factory = 'ООО Рога и Копыта';
+
+Worker.prototype.getSalary = function () {
+  const salary = this.rate * this.days;
 
   return salary;
 };
 
 Worker.prototype.getFullName = function () {
-  console.log(`${this.name} ${this.surname}`);
+  const fullName = `${this.name} ${this.surname}`;
+
+  return fullName;
 };
 
 const worker = new Worker({
@@ -36,8 +43,12 @@ const worker = new Worker({
 });
 
 console.log(worker);
-worker.getFullName();
-console.log(worker.getSalary());
+console.log(worker.name); //выведет 'Иван'
+console.log(worker.surname); //выведет 'Иванов'
+console.log(worker.getFullName()); //выведет 'Иванов Иван'
+console.log(worker.rate); //выведет 50
+console.log(worker.days); //выведет 31
+console.log(worker.getSalary()); //выведет 1550 - то есть 50*31
 
 const worker2 = new Worker({
   surname: 'Пинчук',
@@ -47,5 +58,8 @@ const worker2 = new Worker({
 });
 
 console.log(worker2);
-worker2.getFullName();
+console.log(worker2.getFullName());
 console.log(worker2.getSalary());
+
+console.log(Worker.count);
+console.log(Worker.factory);
