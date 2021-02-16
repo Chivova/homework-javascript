@@ -1,34 +1,78 @@
 // Пример - перепишите классы  Worker, Boss
 // с использованием классов
-const Worker = function ({ name, surname, rate, days } = {}) {
-  this.name = name;
-  this.surname = surname;
-  this.rate = rate;
-  this.days = days;
-};
 
-Worker.prototype.getFullName = function () {
-  const fullName = `${this.name} ${this.surname}`;
+// const Worker = function ({ name, surname, rate, days } = {}) {
+//   this.name = name;
+//   this.surname = surname;
+//   this.rate = rate;
+//   this.days = days;
+// };
 
-  return fullName;
-};
+// Worker.prototype.getFullName = function () {
+//   const fullName = `${this.name} ${this.surname}`;
 
-const Boss = function ({ name, surname, rate, days, workers } = {}) {
-  Worker.call(this, { name, surname, rate, days });
+//   return fullName;
+// };
 
-  this.workers = workers;
-};
+// Worker.prototype.getSalary = function () {
+//   const salary = this.rate * this.days;
 
-Boss.prototype = Object.create(Worker.prototype);
-console.log(Boss.prototype);
+//     return salary;
+// }
 
-Boss.prototype.constructor = Boss;
+// const Boss = function ({ name, surname, rate, days, workers } = {}) {
+//   Worker.call(this, { name, surname, rate, days });
 
-Boss.prototype.getSalary = function () {
-  const salary = this.rate * this.days * this.workers;
+//   this.workers = workers;
+// };
 
-  return salary;
-};
+// Boss.prototype = Object.create(Worker.prototype);
+// console.log(Boss.prototype);
+
+// Boss.prototype.constructor = Boss;
+
+// Boss.prototype.getSalary = function () {
+//   const salary = this.rate * this.days * this.workers;
+
+//   return salary;
+// };
+
+// const boss = new Boss({
+//   surname: 'Иванов',
+//   rate: 10,
+//   name: 'Иван',
+//   days: 31,
+//   workers: 10,
+// });
+
+class Worker {
+  constructor({ name, surname, rate, days } = {}) {
+    this.name = name;
+    this.surname = surname;
+    this.rate = rate;
+    this.days = days;
+  }
+
+  getFullName() {
+    return `${this.name} ${this.surname}`;
+  }
+
+  getSalary() {
+    return this.rate * this.days;
+  }
+}
+
+class Boss extends Worker {
+  constructor({ workers, ...restProp } = {}) {
+    super(restProp);
+
+    this.workers = workers;
+  }
+
+  getSalary() {
+    return this.rate * this.days * this.workers;
+  }
+}
 
 const boss = new Boss({
   surname: 'Иванов',
@@ -38,6 +82,7 @@ const boss = new Boss({
   workers: 10,
 });
 
+console.log(boss);
 console.log(boss.name); //выведет 'Иван'
 console.log(boss.surname); //выведет 'Иванов'
 console.log(boss.getFullName()); //выведет 'Иванов Иван'
@@ -45,4 +90,3 @@ console.log(boss.rate); //выведет 10
 console.log(boss.days); //выведет 31
 console.log(boss.workers); //выведет 10
 console.log(boss.getSalary()); //выведет 3100 - то есть 10*31*10
-console.log(boss);

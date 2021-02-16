@@ -9,8 +9,8 @@ removeItem(item) - получет товар и, если он есть, уда�
 */
 
 class Storage {
-  constructor(arr) {
-    this.items = arr;
+  constructor(items) {
+    this.items = items;
   }
 
   getItems() {
@@ -18,10 +18,25 @@ class Storage {
   }
 
   addItem(item) {
+    // if (this.items.includes(item)) return; // для проверки одинаковых элементов
+
     this.items.push(item);
   }
 
   removeItem(item) {
+    //  чтобы удалило и дубликаты
+    const newItem = [];
+
+    for (const el of this.items) {
+      if (el === item) continue;
+
+      newItem.push(el);
+    }
+
+    this.items = newItem;
+
+    // или
+
     // const { items } = this;
     // for (let i = 0; i < items.length; i += 1) {
     //   if (item === items[i]) {
@@ -29,9 +44,11 @@ class Storage {
     //   }
     // }
 
-    if (this.items.indexOf(item) !== -1) {
-      this.items.splice(this.items.indexOf(item), 1);
-    }
+    // или
+
+    // if (this.items.indexOf(item) !== -1) {
+    //   this.items.splice(this.items.indexOf(item), 1);
+    // }
   }
 }
 

@@ -31,9 +31,9 @@ Student.prototype.constuctor = Student;
 
 Student.prototype.getCourse = function () {
   // Текущий год
-//   const nowYear = new Date().getFullYear();
-   const now = new Date();
-   const nowYear = now.getFullYear();
+  //   const nowYear = new Date().getFullYear();
+  const now = new Date();
+  const nowYear = now.getFullYear();
 
   return nowYear - this.year;
 };
@@ -44,5 +44,5 @@ console.log(student);
 console.log(student.name); //выведет 'Иван'
 console.log(student.surname); //выведет 'Иванов'
 console.log(student.getFullName()); //выведет 'Иван Иванов'
-console.log(student.year); //выведет 20152018
-console.log(student.getCourse()); //выведет 3 - третий курс, так как текущий год
+console.log(student.year); //выведет 2016
+console.log(student.getCourse()); //выведет 5 - пятый курс, так как текущий год
