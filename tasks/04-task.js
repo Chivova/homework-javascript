@@ -29,6 +29,11 @@ class StringBuilder {
 
   pad(str) {
     this._value = `${str}${this._value}${str}`;
+
+    // ИЛИ
+
+    //  this.padStart(str);
+    //  this.padEnd(str);
   }
 }
 
