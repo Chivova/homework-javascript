@@ -10,5 +10,13 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 //   return sum / arr.length;
 // };
 
+const getAverage = (arr) => {
+  const sum = arr.reduce((acc, value) => acc + value, 0);
+
+  const average = sum / arr.length;
+
+  return average;
+  //   return sum / arr.length;
+};
 
 console.log(getAverage(numbers));
