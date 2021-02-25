@@ -127,13 +127,29 @@ console.log(getNamesSortedByFriendsCount(users));
 */
 
 const getSortedUniqueSkills = (users) => {
-  return users.reduce((acc, user) => {
-    if (!acc.includes(user.skills)) {
-      acc.push(user.skills);
-    }
-    return [acc];
-  }, []);
+  const allSkills = users.reduce((acc, user) => [...acc, ...user.skills], []);
+
+  return allSkills
+    .reduce((acc, skill) => {
+      if (!acc.includes(skill)) {
+        acc.push(skill);
+      }
+      return [...acc];
+    }, [])
+    .sort();
 };
+
+// РЕШЕНИЕ 2
+// const getSortedUniqueSkills = (users) =>
+//   users
+//     .flatMap((user) => user.skills)
+//     .reduce((acc, skill) => {
+//       if (!acc.includes(skill)) {
+//         acc.push(skill);
+//       }
+//       return acc;
+//     }, [])
+//     .sort();
 
 console.log(getSortedUniqueSkills(users));
 // [ 'adipisicing', 'amet', 'anim', 'commodo', 'culpa', 'elit', 'ex', 'ipsum', 'irure', 'laborum', 'lorem', 'mollit', 'non', 'nostrud', 'nulla', 'proident', 'tempor', 'velit', 'veniam' ]
