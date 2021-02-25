@@ -94,19 +94,30 @@ console.log(calculateTotalBalance(users)); // 20916
 Массив имен всех пользователей у которых есть друг с указанным именем.
 */
 
-const getUsersWithFriend = (users, friendName) => {};
-
-// console.log(getUsersWithFriend(users, 'Briana Decker')); // [ 'Sharlene Bush', 'Sheree Anthony' ]
-// console.log(getUsersWithFriend(users, 'Goldie Gentry')); // [ 'Elma Head', 'Sheree Anthony' ]
+const getUsersWithFriend = (users, friendName) => {
+  return users
+    .filter(({ friends }) => friends.includes(friendName))
+    .map((user) => user.name);
+};
+console.log(getUsersWithFriend(users, 'Briana Decker')); // [ 'Sharlene Bush', 'Sheree Anthony' ]
+console.log(getUsersWithFriend(users, 'Goldie Gentry')); // [ 'Elma Head', 'Sheree Anthony' ]
 
 /*
 Задание 9
 Массив имен (поле name) людей, отсортированных в зависимости от количества их друзей (поле friends)
  */
 
-const getNamesSortedByFriendsCount = (users) => {};
+const getNamesSortedByFriendsCount = (users) => {
+  return [...users]
+    .sort((prevFriend, nextFriend) => {
+      const prevCommonFriend = prevFriend.friends.length;
+      const nextCommonFriend = nextFriend.friends.length;
+      prevCommonFriend - nextCommonFriend;
+    })
+    .map((user) => user.name);
+};
 
-// console.log(getNamesSortedByFriendsCount(users));
+console.log(getNamesSortedByFriendsCount(users));
 // [ 'Moore Hensley', 'Sharlene Bush', 'Elma Head', 'Carey Barr', 'Blackburn Dotson', 'Sheree Anthony', 'Ross Vazquez' ]
 
 /*
@@ -115,7 +126,14 @@ const getNamesSortedByFriendsCount = (users) => {};
 должны быть отсортированы в алфавитном порядке.
 */
 
-const getSortedUniqueSkills = (users) => {};
+const getSortedUniqueSkills = (users) => {
+  return users.reduce((acc, user) => {
+    if (!acc.includes(user.skills)) {
+      acc.push(user.skills);
+    }
+    return [acc];
+  }, []);
+};
 
-// console.log(getSortedUniqueSkills(users));
+console.log(getSortedUniqueSkills(users));
 // [ 'adipisicing', 'amet', 'anim', 'commodo', 'culpa', 'elit', 'ex', 'ipsum', 'irure', 'laborum', 'lorem', 'mollit', 'non', 'nostrud', 'nulla', 'proident', 'tempor', 'velit', 'veniam' ]
