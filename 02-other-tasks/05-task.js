@@ -62,7 +62,8 @@ console.log('filteredNegativeNums', filteredNegativeNums);
 
 // Дан массив с числами positiveNums. Оставьте в нем только четные числа.
 
-const evenNums = positiveNums.filter((num) => num % 2 === 0);
+// const evenNums = positiveNums.filter((num) => num % 2 === 0);
+const evenNums = positiveNums.filter((num) => !(num % 2));
 console.log('evenNums', evenNums);
 
 // Дан массив со строками. Оставьте в нем только те строки, длина которых больше 5-ти символов.
