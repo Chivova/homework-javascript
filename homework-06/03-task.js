@@ -31,3 +31,31 @@ const images = [
     alt: 'Group of Horses Running',
   },
 ];
+
+const galleryListRef = document.querySelector('#gallery');
+
+// const makeImageItem = ({ url, alt }) => {
+//   galleryListRef.insertAdjacentHTML(
+//     'afterbegin',
+//     `<li><img src="${url}" alt= "${alt}"></li>`
+//   );
+// };
+
+// const imageItem = images.map(makeImageItem);
+
+// const galleryRef = images.map((image) => {
+//   const imgEl = document.createElement('li');
+//   imgEl.insertAdjacentHTML(
+//     'afterbegin',
+//     `<img src=${image.url} alt="${image.alt}" width=360>`
+//   );
+//   return imgEl;
+// });
+
+// galleryListRef.append(...galleryRef);
+
+const gallery = images
+  .map(({ url, alt }) => `<li><img src = '${url}' alt = '${alt}'></li>`)
+  .join('');
+
+galleryListRef.insertAdjacentHTML('beforeend', gallery);

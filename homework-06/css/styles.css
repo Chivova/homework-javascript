@@ -1,0 +1,23 @@
+#gallery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  background-color: whitesmoke;
+}
+
+#gallery li {
+  margin: 10px;
+
+  border-radius: 4px;
+  border: 2px solid green;
+  list-style: none;
+}
+
+#gallery li > img {
+  display: block;
+  width: 385px;
+  height: 250px;
+}
