@@ -1,14 +1,5 @@
 import users from './data/users.js';
 
-{
-  /* <li>
-  <h2>Имя</h2>
-  <p>Email</p>
-  <p>friends</p>
-  <p>age</p>
-</li>; */
-}
-
 const usersListRef = document.querySelector('.users-list');
 
 const makeUserCard = ({ name, email, age, friends }) => {
@@ -28,13 +19,7 @@ const makeUserCard = ({ name, email, age, friends }) => {
   const userFriendsRef = document.createElement('p');
   userFriendsRef.textContent = `Friends: ${friends}`;
 
-  userItemRef.append(
-    userNameRef,
-    userEmailRef,
-    userEmailRef,
-    userAgeRef,
-    userFriendsRef
-  );
+  userItemRef.append(userNameRef, userEmailRef, userAgeRef, userFriendsRef);
 
   return userItemRef;
 };
