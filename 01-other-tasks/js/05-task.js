@@ -4,3 +4,25 @@
 // Сделайте так, чтобы по нажатию Enter
 // введенный текст попадал в абзац под инпутом,
 // а содержимое инпута очищалось.
+
+const inputRef = document.querySelector('input');
+const textRef = document.querySelector('.text');
+const formRef = document.querySelector('form');
+
+// Костыльный вариант, лучше всегда делать через форму
+
+// document.addEventListener('keydown', event => {
+//   if (event.code !== 'Enter') return;
+
+//   // const { value } = inputRef;
+
+//   textRef.textContent = inputRef.value;
+//   inputRef.value = '';
+// });
+
+formRef.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  textRef.textContent = inputRef.value;
+  inputRef.value = '';
+});
