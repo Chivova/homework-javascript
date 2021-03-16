@@ -6,3 +6,16 @@
 <input type="text" placeholder="Ваше имя?" id="name-input" />
 <h1>Привет, <span id="name-output">незнакомец</span>!</h1>
 */
+
+const nameInputRef = document.querySelector('#name-input');
+const nameOutputRef = document.querySelector('#name-output');
+
+nameInputRef.addEventListener('input', onInputText);
+
+function onInputText(event) {
+  nameOutputRef.textContent = event.target.value;
+
+  if (!event.target.value) {
+    nameOutputRef.textContent = 'незнакомец';
+  }
+}
