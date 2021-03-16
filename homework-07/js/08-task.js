@@ -22,3 +22,22 @@
 
 <div id="boxes"></div>
 */
+
+const refs = {
+  inputValue: document.querySelector('input'),
+  renderBtn: document.querySelector('[data-action="render"]'),
+  destroyBtn: document.querySelector('[data-action="destroy"]'),
+  boxesContainer: document.querySelector('#boxes'),
+};
+
+refs.renderBtn.addEventListener('click', createBoxes);
+refs.destroyBtn.addEventListener('click', () => {});
+
+function createBoxes(amount) {
+  const box = document.createElement('div');
+
+  box.width = 30;
+  box.height = 30;
+  box.style.backgroundColor = 'red';
+  refs.boxesContainer.append(box);
+}
