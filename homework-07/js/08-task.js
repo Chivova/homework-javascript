@@ -14,13 +14,6 @@
 Каждый следующий div после первого, должен быть шире и выше предыдущего на 10px
 Создай функцию destroyBoxes(), которая очищает div#boxes.
 
-<div id="controls">
-  <input type="number" min="0" max="100" step="1" />
-  <button type="button" data-action="render">Создать</button>
-  <button type="button" data-action="destroy">Очистить</button>
-</div>
-
-<div id="boxes"></div>
 */
 
 const refs = {
@@ -30,14 +23,84 @@ const refs = {
   boxesContainer: document.querySelector('#boxes'),
 };
 
-refs.renderBtn.addEventListener('click', createBoxes);
-refs.destroyBtn.addEventListener('click', () => {});
+refs.renderBtn.addEventListener('click', onCreateBoxesBtnClick);
+refs.destroyBtn.addEventListener('click', onDestroyBtnClick);
+// refs.renderBtn.addEventListener('click', onCreateBoxes);
+// refs.destroyBtn.addEventListener('click', onDestroyBoxes);
 
-function createBoxes(amount) {
-  const box = document.createElement('div');
+// Эту функцию нашел в интернете :)
+// function MakeRandomColor() {
+//   let color = Math.floor(Math.random() * 16777216).toString(16);
+//   return '#000000'.slice(0, -color.length) + color;
+// }
 
-  box.width = 30;
-  box.height = 30;
-  box.style.backgroundColor = 'red';
-  refs.boxesContainer.append(box);
+function MakeRandomColor() {
+  const randomColor = (min, max) =>
+    Math.round(Math.random() * (max - min) + min);
+
+  const red = randomColor(0, 255);
+  const green = randomColor(0, 255);
+  const blue = randomColor(0, 255);
+
+  return `rgb(${red},${green},${blue})`;
 }
+
+let counter = 20;
+
+function onCreateBoxesBtnClick(amount) {
+  amount = Number(refs.inputValue.value);
+  const quantityElOfArr = [...new Array(amount)];
+
+  const boxesArr = quantityElOfArr.map((el) => {
+    counter += 10;
+
+    el = document.createElement('div');
+    el.style.width = counter + 'px';
+    el.style.height = counter + 'px';
+    el.style.backgroundColor = MakeRandomColor();
+    el.style.marginTop = 10 + 'px';
+    return el;
+  });
+
+  refs.boxesContainer.append(...boxesArr);
+}
+
+function onDestroyBtnClick() {
+  counter = 20;
+  refs.boxesContainer.innerHTML = '';
+  refs.inputValue.value = '';
+}
+
+// function onInputValid(event) {
+//   if (event.currentTarget.value <= Number(event.currentTarget.max)) {
+//     return;
+//   }
+//   alert('Введите число от 0 до 100');
+//   event.currentTarget.value = '';
+//   boxContainerEl.innerHTML = '';
+// }
+
+// function onCreateBoxes(amount) {
+//   refs.boxesContainer.innerHTML = '';
+//   amount = Number(refs.inputValue.value);
+//   const collectionArr = [];
+
+//   for (let i = 1; i <= amount; i++) {
+//     const box = document.createElement('div');
+
+//     box.style.width = i * 20 + 'px';
+//     box.style.height = i * 20 + 'px';
+//     box.style.marginTop = 10 + 'px';
+//     box.style.backgroundColor = MakeRandomColor();
+
+//     collectionArr.push(box);
+//   }
+
+//   refs.boxesContainer.append(...collectionArr);
+// }
+
+// function onDestroyBoxes() {
+//
+//     [...boxContainerRef.children].forEach(el => el.remove());
+//     inputAmountRef.value = null;
+// }
