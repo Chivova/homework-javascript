@@ -24,6 +24,8 @@
 .parent {
   display: flex;
   flex-wrap: wrap;
+  margin: auto;
+  width: 240px;
 }
 
 .child_block {
@@ -58,6 +60,14 @@
   background-color: white;
 }
 
+.block_active__reverse {
+  background-color: white;
+}
+
+.btn-wrap {
+  margin-left: 50%;
+  margin-top: 10px;
+}
 .tree__sub-tree {
   display: none;
 }
