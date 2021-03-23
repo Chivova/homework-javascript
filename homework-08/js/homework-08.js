@@ -3,6 +3,9 @@ import gallery from './data/gallery-items.js';
 const refs = {
   galleryList: document.querySelector('.js-gallery'),
   largeImg: document.querySelector('.lightbox__image'),
+  OpenModal: document.querySelector('.js-lightbox'),
+  modalCloseBtn: document.querySelector('.lightbox__button'),
+  overlay: document.querySelector('.lightbox__overlay'),
 };
 
 // function makeItemsGallery({ preview, original, description }) {
@@ -55,6 +58,8 @@ function markupRenderingGallery() {
 markupRenderingGallery();
 
 refs.galleryList.addEventListener('click', onImgOfGalleryClick);
+refs.modalCloseBtn.addEventListener('click', onCloseModal);
+refs.overlay.addEventListener('click', onCloseModalOverlayClick);
 
 function onImgOfGalleryClick(evt) {
   evt.preventDefault();
@@ -62,9 +67,34 @@ function onImgOfGalleryClick(evt) {
   if (!evt.target.classList.contains('gallery__image')) return;
 
   const imgRef = evt.target;
-  setLargeImg(imgRef);
+  const imgLargeSrc = imgRef.dataset.source;
+
+  openModal(imgLargeSrc);
 }
 
-function setLargeImgSrcURL(url) {
-  largeImg.src = url;
+function openModal(url) {
+  window.addEventListener('keydown', onCloseModalEscKeyPress);
+
+  refs.OpenModal.classList.add('is-open');
+  refs.largeImg.src = url;
+}
+
+function onCloseModal() {
+  window.removeEventListener('keydown', onCloseModalEscKeyPress);
+
+  refs.OpenModal.classList.remove('is-open');
+  refs.largeImg.src = '';
+  console.log(refs.largeImg.src);
+}
+
+function onCloseModalOverlayClick(evt) {
+  const isTargetClick = evt.target === evt.currentTarget;
+
+  if (isTargetClick) onCloseModal();
+}
+
+function onCloseModalEscKeyPress(evt) {
+  const isEscKey = evt.code === 'Escape';
+
+  if (isEscKey) onCloseModal();
 }
