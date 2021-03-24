@@ -76,19 +76,20 @@ function onImgOfGalleryClick(evt) {
 }
 
 function openModal(url, index) {
+  window.addEventListener('keydown', onCloseModalEscKeyPress);
+  window.addEventListener('keydown', onScrollArrowRightKeyPress);
+  window.addEventListener('keydown', onScrollArrowLeftKeyPress);
+
   refs.OpenModal.classList.add('is-open');
   refs.largeImg.src = url;
   refs.largeImg.dataset.index = index;
   activeIndexImg = Number(refs.largeImg.dataset.index);
-
-  window.addEventListener('keydown', onCloseModalEscKeyPress);
-  window.addEventListener('keydown', onScrollArrowRightKeyPress);
-  window.addEventListener('keydown', onScrollArrowLeftKeyPress);
 }
 
 function onCloseModal() {
   window.removeEventListener('keydown', onCloseModalEscKeyPress);
   window.removeEventListener('keydown', onScrollArrowRightKeyPress);
+  window.removeEventListener('keydown', onScrollArrowLeftKeyPress);
 
   refs.OpenModal.classList.remove('is-open');
   refs.largeImg.src = '';
@@ -107,8 +108,10 @@ function onCloseModalEscKeyPress(evt) {
 }
 
 function onScrollArrowRightKeyPress(evt) {
+  const key = evt.code;
+  
   if (activeIndexImg < gallery.length - 1) {
-    if (evt.code === 'ArrowRight') {
+    if (key === 'ArrowRight') {
       refs.largeImg.src = gallery[activeIndexImg + 1].original;
       activeIndexImg += 1;
     }
@@ -116,21 +119,41 @@ function onScrollArrowRightKeyPress(evt) {
 }
 
 function onScrollArrowLeftKeyPress(evt) {
-  console.log(evt.code);
-  if (activeIndexImg <= 0) {
-    if (evt.code === 'ArrowLeft') {
+  const key = evt.code;
+  
+  if (activeIndexImg > 0) {
+    if (key === 'ArrowLeft') {
       refs.largeImg.src = gallery[activeIndexImg - 1].original;
       activeIndexImg -= 1;
     }
   }
 }
 
-function onScrollArrowRightKeyPress2(evt) {
-  for (let i = 0; i < gallery.length; i += 1) {
-    if (refs.largeImg.src === originalImgList[i]) {
-      refs.largeImg.src = originalImgList[i + 1];
-    }
-  }
-}
+// function onScrollArrowRightKeyPress2(evt) {
+//   if (evt.code === 'ArrowRight') {
+//     for (let i = 0; i < gallery.length; i += 1) {
+//       if (i < gallery.length - 1) {
+//         if (refs.largeImg.src === originalImgList[i]) {
+//           return (refs.largeImg.src = originalImgList[i + 1]);
+//         }
+//       }
+//     }
+//   }
+// }
 
-onScrollArrowRightKeyPress2();
+// function onScrollArrowLeftKeyPress2(evt) {
+//   if (evt.code === 'ArrowLeft') {
+//     for (let i = gallery.length - 1; i > 0; i -= 1) {
+//       if (refs.largeImg.src === originalImgList[i]) {
+//         return (refs.largeImg.src = originalImgList[i - 1]);
+//       }
+//     }
+//     // originalImgList.forEach((el, index, arr) => {
+//     //   console.log(refs.largeImg.src);
+//     //   if (refs.largeImg.src === el) {
+//     //     console.log(arr[index]);
+//     //     refs.largeImg.src = arr[index - 1];
+//     //   }
+//     // });
+//   }
+// }
