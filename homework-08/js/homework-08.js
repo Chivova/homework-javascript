@@ -31,6 +31,11 @@ const refs = {
 // const elementsGallery = gallery.map(makeItemsGallery);
 // refs.galleryList.append(...elementsGallery);
 
+const originalImgList = gallery.map((el) => el.original);
+// console.log(originalImgList);
+let imgDataIndexCount = 0;
+let activeIndexImg = 0;
+
 function makeItemGallery(gallery) {
   return gallery
     .map(({ preview, original, description }) => {
@@ -43,6 +48,7 @@ function makeItemGallery(gallery) {
       class='gallery__image'
       src="${preview}"
       data-source="${original}"
+      data-index="${imgDataIndexCount++}"
       alt="${description}"
     />
   </a>
@@ -50,12 +56,8 @@ function makeItemGallery(gallery) {
     })
     .join('');
 }
-
-function markupRenderingGallery() {
-  const galleryContainer = makeItemGallery(gallery);
-  refs.galleryList.insertAdjacentHTML('beforeend', galleryContainer);
-}
-markupRenderingGallery();
+const galleryContainer = makeItemGallery(gallery);
+refs.galleryList.insertAdjacentHTML('beforeend', galleryContainer);
 
 refs.galleryList.addEventListener('click', onImgOfGalleryClick);
 refs.modalCloseBtn.addEventListener('click', onCloseModal);
@@ -68,23 +70,28 @@ function onImgOfGalleryClick(evt) {
 
   const imgRef = evt.target;
   const imgLargeSrc = imgRef.dataset.source;
+  activeIndexImg = imgRef.dataset.index;
 
-  openModal(imgLargeSrc);
+  openModal(imgLargeSrc, activeIndexImg);
 }
 
-function openModal(url) {
-  window.addEventListener('keydown', onCloseModalEscKeyPress);
-
+function openModal(url, index) {
   refs.OpenModal.classList.add('is-open');
   refs.largeImg.src = url;
+  refs.largeImg.dataset.index = index;
+  activeIndexImg = Number(refs.largeImg.dataset.index);
+
+  window.addEventListener('keydown', onCloseModalEscKeyPress);
+  window.addEventListener('keydown', onScrollArrowRightKeyPress);
+  window.addEventListener('keydown', onScrollArrowLeftKeyPress);
 }
 
 function onCloseModal() {
   window.removeEventListener('keydown', onCloseModalEscKeyPress);
+  window.removeEventListener('keydown', onScrollArrowRightKeyPress);
 
   refs.OpenModal.classList.remove('is-open');
   refs.largeImg.src = '';
-  console.log(refs.largeImg.src);
 }
 
 function onCloseModalOverlayClick(evt) {
@@ -98,3 +105,32 @@ function onCloseModalEscKeyPress(evt) {
 
   if (isEscKey) onCloseModal();
 }
+
+function onScrollArrowRightKeyPress(evt) {
+  if (activeIndexImg < gallery.length - 1) {
+    if (evt.code === 'ArrowRight') {
+      refs.largeImg.src = gallery[activeIndexImg + 1].original;
+      activeIndexImg += 1;
+    }
+  }
+}
+
+function onScrollArrowLeftKeyPress(evt) {
+  console.log(evt.code);
+  if (activeIndexImg <= 0) {
+    if (evt.code === 'ArrowLeft') {
+      refs.largeImg.src = gallery[activeIndexImg - 1].original;
+      activeIndexImg -= 1;
+    }
+  }
+}
+
+function onScrollArrowRightKeyPress2(evt) {
+  for (let i = 0; i < gallery.length; i += 1) {
+    if (refs.largeImg.src === originalImgList[i]) {
+      refs.largeImg.src = originalImgList[i + 1];
+    }
+  }
+}
+
+onScrollArrowRightKeyPress2();
