@@ -31,8 +31,9 @@ const refs = {
 // const elementsGallery = gallery.map(makeItemsGallery);
 // refs.galleryList.append(...elementsGallery);
 
-const originalImgList = gallery.map((el) => el.original);
+// const originalImgList = gallery.map((el) => el.original);
 // console.log(originalImgList);
+
 let imgDataIndexCount = 0;
 let activeIndexImg = 0;
 
@@ -45,6 +46,7 @@ function makeItemGallery(gallery) {
     href='${original}'
   >
     <img
+    loading = "lazy"
       class='gallery__image'
       src="${preview}"
       data-source="${original}"
@@ -70,6 +72,7 @@ function onImgOfGalleryClick(evt) {
 
   const imgRef = evt.target;
   const imgLargeSrc = imgRef.dataset.source;
+  refs.largeImg.alt = imgRef.alt;
   activeIndexImg = imgRef.dataset.index;
 
   openModal(imgLargeSrc, activeIndexImg);
@@ -83,6 +86,7 @@ function openModal(url, index) {
   refs.OpenModal.classList.add('is-open');
   refs.largeImg.src = url;
   refs.largeImg.dataset.index = index;
+
   activeIndexImg = Number(refs.largeImg.dataset.index);
 }
 
@@ -109,7 +113,7 @@ function onCloseModalEscKeyPress(evt) {
 
 function onScrollArrowRightKeyPress(evt) {
   const key = evt.code;
-  
+
   if (activeIndexImg < gallery.length - 1) {
     if (key === 'ArrowRight') {
       refs.largeImg.src = gallery[activeIndexImg + 1].original;
@@ -120,7 +124,7 @@ function onScrollArrowRightKeyPress(evt) {
 
 function onScrollArrowLeftKeyPress(evt) {
   const key = evt.code;
-  
+
   if (activeIndexImg > 0) {
     if (key === 'ArrowLeft') {
       refs.largeImg.src = gallery[activeIndexImg - 1].original;
