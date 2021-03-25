@@ -46,7 +46,7 @@ function makeItemGallery(gallery) {
     href='${original}'
   >
     <img
-    loading = "lazy"
+    loading="lazy"
       class='gallery__image'
       src="${preview}"
       data-source="${original}"
